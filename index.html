@@ -405,6 +405,10 @@ function showLogin() {
 }
 
 function showApp() {
+  if (!localStorage.getItem('bv_onboarded')) {
+    window.location.href = 'https://gregsanderson-cpu.github.io/british-values-pack/onboarding.html';
+    return;
+  }
   document.getElementById('loading-screen').style.display = 'none';
   document.getElementById('welcome-screen').style.display = 'none';
   document.getElementById('login-screen').style.display = 'none';
