@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>British Values Pack — Member Area | Smart School Councils</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #2e7d32;
+      --green-light: #4caf50;
+      --green-pale: #e8f5e9;
+      --green-dark: #1b5e20;
+      --text: #1a1a1a;
+      --text-muted: #555;
+      --border: #e0e0e0;
+      --card-bg: #fff;
+      --bg: #f5f7f5;
+      --red: #c62828;
+      --amber: #e65100;
+    }
+    body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* ── WELCOME SCREEN ── */
+    #welcome-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 60%, var(--green-light) 100%);
+    }
+    .welcome-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 52px 44px;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.22);
+      text-align: center;
+    }
+    .welcome-tick { font-size: 56px; margin-bottom: 16px; line-height: 1; }
+    .welcome-card h1 { font-size: 22px; font-weight: 900; color: var(--green-dark); margin-bottom: 10px; line-height: 1.3; }
+    .welcome-card .subtitle { color: var(--text-muted); font-size: 15px; line-height: 1.65; margin-bottom: 24px; }
+    .welcome-email-box {
+      background: var(--green-pale);
+      border-radius: 12px;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 24px;
+      word-break: break-all;
+    }
+    .welcome-hint { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+    .welcome-hint a { color: var(--green); font-weight: 700; text-decoration: none; cursor: pointer; }
+    .welcome-hint a:hover { text-decoration: underline; }
+    .welcome-divider { height: 1px; background: var(--border); margin: 20px 0; }
+    .welcome-brand { font-size: 12px; color: #bbb; font-weight: 600; }
+
+    /* ── LOGIN SCREEN ── */
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 60%, var(--green-light) 100%);
+    }
+    .login-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 48px 40px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .login-logo { width: 60px; height: 60px; background: var(--green); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 28px; }
+    .login-card h1 { font-size: 24px; font-weight: 800; color: var(--green-dark); margin-bottom: 6px; }
+    .login-card .subtitle { color: var(--text-muted); font-size: 15px; margin-bottom: 32px; }
+    .login-card label { display: block; text-align: left; font-weight: 700; font-size: 14px; margin-bottom: 8px; color: var(--text); }
+    .login-card input[type="email"] { width: 100%; padding: 14px 16px; border: 2px solid var(--border); border-radius: 12px; font-family: inherit; font-size: 16px; outline: none; transition: border-color 0.2s; margin-bottom: 16px; }
+    .login-card input[type="email"]:focus { border-color: var(--green); }
+    .btn-primary { width: 100%; padding: 15px; background: var(--green); color: #fff; border: none; border-radius: 12px; font-family: inherit; font-size: 16px; font-weight: 800; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+    .btn-primary:hover { background: var(--green-dark); }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled { background: #9e9e9e; cursor: not-allowed; }
+    .login-note { margin-top: 20px; font-size: 13px; color: var(--text-muted); }
+    .msg-box { padding: 14px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; margin-bottom: 16px; display: none; }
+    .msg-box.success { background: var(--green-pale); color: var(--green-dark); display: block; }
+    .msg-box.error { background: #ffebee; color: var(--red); display: block; }
+
+    /* ── MAIN APP ── */
+    #app { display: none; }
+    header { background: var(--green-dark); color: #fff; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .header-brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 16px; }
+    .header-brand .logo-badge { background: #fff; color: var(--green-dark); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .header-school { font-size: 13px; font-weight: 600; opacity: 0.85; text-align: right; }
+    .header-school span { display: block; font-size: 15px; font-weight: 800; opacity: 1; }
+    .btn-logout { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 6px 14px; border-radius: 8px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; margin-left: 16px; transition: background 0.2s; }
+    .btn-logout:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── TABS ── */
+    .tab-bar { background: #fff; border-bottom: 2px solid var(--border); display: flex; gap: 0; padding: 0 24px; overflow-x: auto; }
+    .tab-btn { padding: 16px 20px; border: none; background: none; font-family: inherit; font-size: 15px; font-weight: 700; color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: color 0.2s, border-color 0.2s; }
+    .tab-btn.active { color: var(--green-dark); border-bottom-color: var(--green); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+    .tab-panel { display: none; padding: 32px 24px; max-width: 900px; margin: 0 auto; }
+    .tab-panel.active { display: block; }
+
+    /* ── PROGRESS STRIP ── */
+    .progress-strip { background: #fff; border-radius: 16px; padding: 20px 24px; margin-bottom: 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-item .val { font-size: 28px; font-weight: 900; color: var(--green-dark); line-height: 1; }
+    .stat-item .lbl { font-size: 12px; font-weight: 700; color: var(--text-muted); margin-top: 3px; }
+    .stat-divider { width: 1px; height: 40px; background: var(--border); }
+    .progress-bar-wrap { flex: 1; min-width: 200px; }
+    .progress-bar-label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--text-muted); }
+    .progress-bar { height: 10px; background: var(--border); border-radius: 99px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--green-light)); border-radius: 99px; transition: width 0.8s ease; }
+
+    /* ── DEBATE CARDS ── */
+    .section-title { font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+    .debates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .debate-card { background: var(--card-bg); border-radius: 14px; border: 2px solid var(--border); padding: 20px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .debate-card:hover { border-color: var(--green-light); box-shadow: 0 4px 16px rgba(46,125,50,0.1); }
+    .debate-card.done { border-color: var(--green-light); background: var(--green-pale); }
+    .debate-card .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+    .value-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--green-pale); color: var(--green-dark); border-radius: 20px; padding: 4px 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; flex-shrink: 0; }
+    .debate-card.done .value-badge { background: var(--green); color: #fff; }
+    .debate-card h3 { font-size: 15px; font-weight: 800; line-height: 1.3; flex: 1; }
+    .debate-card .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .debate-card.done .card-footer { border-color: #c8e6c9; }
+    .run-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--green); color: #fff; padding: 8px 16px; border-radius: 8px; font-family: inherit; font-size: 13px; font-weight: 800; text-decoration: none; transition: background 0.2s; }
+    .run-btn:hover { background: var(--green-dark); }
+    .run-again-btn { background: transparent; color: var(--green); border: 2px solid var(--green); }
+    .run-again-btn:hover { background: var(--green-pale); }
+    .last-run { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+
+    /* ── PROGRESS TAB ── */
+    .progress-table { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .progress-table table { width: 100%; border-collapse: collapse; }
+    .progress-table th { background: var(--green-dark); color: #fff; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; padding: 12px 16px; text-align: left; }
+    .progress-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }
+    .progress-table tr:last-child td { border-bottom: none; }
+    .progress-table tr:hover td { background: var(--green-pale); }
+    .status-pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
+    .status-pill.done { background: #c8e6c9; color: var(--green-dark); }
+    .status-pill.pending { background: #fff3e0; color: var(--amber); }
+
+    /* ── OFSTED TAB ── */
+    .ofsted-card { background: #fff; border-radius: 16px; padding: 36px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); text-align: center; }
+    .ofsted-icon { font-size: 56px; margin-bottom: 16px; }
+    .ofsted-card h2 { font-size: 22px; font-weight: 800; color: var(--green-dark); margin-bottom: 10px; }
+    .ofsted-card p { color: var(--text-muted); font-size: 15px; line-height: 1.6; max-width: 500px; margin: 0 auto 24px; }
+    .ofsted-summary { background: var(--green-pale); border-radius: 12px; padding: 20px 24px; text-align: left; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .ofsted-summary-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #c8e6c9; font-size: 14px; }
+    .ofsted-summary-row:last-child { border-bottom: none; }
+    .ofsted-summary-row .label { color: var(--text-muted); font-weight: 600; }
+    .ofsted-summary-row .value { font-weight: 800; color: var(--green-dark); }
+    .btn-generate { display: inline-block; padding: 14px 32px; background: var(--green); color: #fff; border: none; border-radius: 12px; font-family: inherit; font-size: 16px; font-weight: 800; cursor: pointer; transition: background 0.2s; text-decoration: none; }
+    .btn-generate:hover { background: var(--green-dark); }
+    .coming-soon-badge { display: inline-block; background: #fff3e0; color: var(--amber); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px; }
+
+    /* ── LOADING ── */
+    #loading-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--green-dark); }
+    .spinner { width: 48px; height: 48px; border: 4px solid rgba(255,255,255,0.2); border-top-color: #fff; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 600px) {
+      .login-card { padding: 32px 24px; }
+      .welcome-card { padding: 36px 24px; }
+      .tab-panel { padding: 20px 16px; }
+      .progress-strip { gap: 16px; }
+      .debates-grid { grid-template-columns: 1fr; }
+      .header-school { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading-screen">
+  <div class="spinner"></div>
+</div>
+
+<!-- WELCOME SCREEN (shown after Stripe purchase) -->
+<div id="welcome-screen" style="display:none">
+  <div class="welcome-card">
+    <div class="welcome-tick">✅</div>
+    <h1>You're in! Welcome to the British Values Pack.</h1>
+    <p class="subtitle">Your login link is on its way — check your inbox. It should arrive within a minute.</p>
+    <div class="welcome-email-box" id="welcome-email-display">📧 Checking…</div>
+    <p class="welcome-hint">
+      Can't find it? Check your spam folder, or
+      <a onclick="showLoginFromWelcome()">request another link →</a>
+    </p>
+    <div class="welcome-divider"></div>
+    <p class="welcome-brand">Smart School Councils · Registered Charity No. 1156110</p>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login-screen" style="display:none">
+  <div class="login-card">
+    <div class="login-logo">🏫</div>
+    <h1>British Values Pack</h1>
+    <p class="subtitle">Member area for Smart School Councils</p>
+    <div id="msg-box" class="msg-box"></div>
+    <div id="login-form">
+      <label for="email-input">School email address</label>
+      <input type="email" id="email-input" placeholder="Enter the email you used at checkout" autocomplete="email">
+      <button class="btn-primary" id="send-link-btn" onclick="requestMagicLink()">Send me a login link →</button>
+      <p class="login-note">We'll email you a one-click login link. No password needed.</p>
+    </div>
+    <div id="check-email" style="display:none">
+      <div style="font-size:48px;margin-bottom:16px">📬</div>
+      <p style="font-size:15px;color:var(--text-muted);line-height:1.6">
+        Check your inbox — we've sent a login link to <strong id="sent-to-email"></strong>.<br><br>
+        The link expires in 30 minutes.
+      </p>
+      <button class="btn-primary" style="margin-top:20px" onclick="showLoginForm()">Try a different email</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" style="display:none">
+  <header>
+    <div class="header-brand">
+      <div class="logo-badge">🏫</div>
+      British Values Pack
+    </div>
+    <div style="display:flex;align-items:center">
+      <div class="header-school">
+        Signed in as<span id="header-school-name">Your School</span>
+      </div>
+      <button class="btn-logout" onclick="logout()">Sign out</button>
+    </div>
+  </header>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('debates', this)">📋 Debates</button>
+    <button class="tab-btn" onclick="switchTab('progress', this)">📊 Progress</button>
+    <button class="tab-btn" onclick="switchTab('ofsted', this)">📄 Ofsted Report</button>
+  </div>
+
+  <!-- DEBATES TAB -->
+  <div id="tab-debates" class="tab-panel active">
+    <div class="progress-strip">
+      <div class="stat-item">
+        <div class="val" id="stat-done">0</div>
+        <div class="lbl">Debates run</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="val">10</div>
+        <div class="lbl">Total debates</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="val" id="stat-values">0/5</div>
+        <div class="lbl">Values covered</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-label">
+          <span>Term progress</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-title">The 10 debates — 2 per British Value</div>
+    <div class="debates-grid" id="debates-grid"></div>
+  </div>
+
+  <!-- PROGRESS TAB -->
+  <div id="tab-progress" class="tab-panel">
+    <div class="progress-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Debate</th><th>British Value</th><th>Status</th><th>Last run</th>
+          </tr>
+        </thead>
+        <tbody id="progress-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- OFSTED TAB -->
+  <div id="tab-ofsted" class="tab-panel">
+    <div class="ofsted-card">
+      <div class="ofsted-icon">📄</div>
+      <span class="coming-soon-badge">Available end of term</span>
+      <h2>Ofsted Impact Report</h2>
+      <p>At the end of term, generate a one-page PDF showing exactly how your school engaged with British Values through structured pupil debate — ready for your Ofsted folder or governor report.</p>
+      <div class="ofsted-summary">
+        <div class="ofsted-summary-row">
+          <span class="label">Debates completed</span>
+          <span class="value" id="ofsted-done">0 of 10</span>
+        </div>
+        <div class="ofsted-summary-row">
+          <span class="label">British Values covered</span>
+          <span class="value" id="ofsted-values">0 of 5</span>
+        </div>
+        <div class="ofsted-summary-row">
+          <span class="label">Report status</span>
+          <span class="value" id="ofsted-status">Complete more debates first</span>
+        </div>
+      </div>
+      <button class="btn-generate" id="generate-btn" disabled style="opacity:0.4;cursor:not-allowed">
+        Generate PDF Report
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+const AUTH_API = 'https://bigdebate.club/bv-auth.php';
+
+const DEBATES = [
+  { id: 'dem1', value: 'Democracy', emoji: '🗳️', question: 'Should pupils have more say in how their school is run?', meetingPath: '/british-values-democracy-1' },
+  { id: 'dem2', value: 'Democracy', emoji: '🗳️', question: 'Is it fair that some people\'s votes count more than others in elections?', meetingPath: '/british-values-democracy-2' },
+  { id: 'rul1', value: 'Rule of Law', emoji: '⚖️', question: 'Should there be laws that protect people even if most people disagree with them?', meetingPath: '/british-values-rule-of-law-1' },
+  { id: 'rul2', value: 'Rule of Law', emoji: '⚖️', question: 'Is it ever right to break the law?', meetingPath: '/british-values-rule-of-law-2' },
+  { id: 'lib1', value: 'Individual Liberty', emoji: '🕊️', question: 'Should people be free to say anything they want, even if it upsets others?', meetingPath: '/british-values-individual-liberty-1' },
+  { id: 'lib2', value: 'Individual Liberty', emoji: '🕊️', question: 'Does freedom mean doing what you want, or doing what is right?', meetingPath: '/british-values-individual-liberty-2' },
+  { id: 'mut1', value: 'Mutual Respect', emoji: '🤝', question: 'Is respect something that should be earned, or given to everyone automatically?', meetingPath: '/british-values-mutual-respect-1' },
+  { id: 'mut2', value: 'Mutual Respect', emoji: '🤝', question: 'Can you respect someone if you strongly disagree with their beliefs?', meetingPath: '/british-values-mutual-respect-2' },
+  { id: 'tol1', value: 'Tolerance', emoji: '🌍', question: 'Is tolerating something the same as accepting it?', meetingPath: '/british-values-tolerance-1' },
+  { id: 'tol2', value: 'Tolerance', emoji: '🌍', question: 'Should schools teach pupils about all religions, or leave that to families?', meetingPath: '/british-values-tolerance-2' }
+];
+
+let session = null;
+let progress = {};
+
+window.addEventListener('DOMContentLoaded', async () => {
+  const params = new URLSearchParams(window.location.search);
+
+  // ── Welcome screen: redirected from Stripe after purchase
+  if (params.get('welcome') === '1') {
+    const email = params.get('email') || '';
+    showWelcome(email);
+    return;
+  }
+
+  // ── Magic link token
+  const token = params.get('token');
+  if (token) {
+    try {
+      const res = await fetch(`${AUTH_API}?action=verify&token=${encodeURIComponent(token)}`);
+      const data = await res.json();
+      if (data.ok) {
+        saveSession(data);
+        window.history.replaceState({}, '', window.location.pathname);
+        showApp();
+        return;
+      }
+    } catch(e) {}
+    showLogin();
+    showMsg('That login link has expired or already been used. Please request a new one.', 'error');
+    return;
+  }
+
+  // ── Stored session
+  const stored = localStorage.getItem('bv_session');
+  if (stored) {
+    try {
+      session = JSON.parse(stored);
+      progress = JSON.parse(localStorage.getItem('bv_progress') || '{}');
+      showApp();
+      return;
+    } catch(e) {}
+  }
+
+  showLogin();
+});
+
+// ── SCREENS ──
+function showWelcome(email) {
+  document.getElementById('loading-screen').style.display = 'none';
+  document.getElementById('welcome-screen').style.display = 'flex';
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'none';
+  const el = document.getElementById('welcome-email-display');
+  el.textContent = email ? '📧 ' + email : '📧 Check your inbox';
+}
+
+function showLoginFromWelcome() {
+  document.getElementById('welcome-screen').style.display = 'none';
+  showLogin();
+}
+
+function showLogin() {
+  document.getElementById('loading-screen').style.display = 'none';
+  document.getElementById('welcome-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+}
+
+function showApp() {
+  document.getElementById('loading-screen').style.display = 'none';
+  document.getElementById('welcome-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('header-school-name').textContent = session.schoolName || session.email;
+  renderDebates();
+  renderProgress();
+  updateOfsted();
+}
+
+function showMsg(text, type) {
+  const el = document.getElementById('msg-box');
+  el.textContent = text;
+  el.className = `msg-box ${type}`;
+}
+
+// ── AUTH ──
+async function requestMagicLink() {
+  const email = document.getElementById('email-input').value.trim();
+  if (!email || !email.includes('@')) { showMsg('Please enter a valid email address.', 'error'); return; }
+  const btn = document.getElementById('send-link-btn');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  try {
+    const res = await fetch(`${AUTH_API}?action=request&email=${encodeURIComponent(email)}`);
+    const data = await res.json();
+    if (data.ok) {
+      document.getElementById('sent-to-email').textContent = email;
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('check-email').style.display = 'block';
+      document.getElementById('msg-box').style.display = 'none';
+    } else {
+      showMsg(data.message || 'No British Values Pack account found for that email. Please check your address or contact hello@smartschoolcouncils.org.uk', 'error');
+      btn.disabled = false; btn.textContent = 'Send me a login link →';
+    }
+  } catch(e) {
+    showMsg('Something went wrong. Please try again or email hello@smartschoolcouncils.org.uk', 'error');
+    btn.disabled = false; btn.textContent = 'Send me a login link →';
+  }
+}
+
+function showLoginForm() {
+  document.getElementById('login-form').style.display = 'block';
+  document.getElementById('check-email').style.display = 'none';
+  document.getElementById('msg-box').style.display = 'none';
+  document.getElementById('send-link-btn').disabled = false;
+  document.getElementById('send-link-btn').textContent = 'Send me a login link →';
+}
+
+function saveSession(data) {
+  session = { email: data.email, schoolName: data.schoolName, schoolId: data.schoolId, token: data.token };
+  localStorage.setItem('bv_session', JSON.stringify(session));
+}
+
+function logout() {
+  localStorage.removeItem('bv_session');
+  localStorage.removeItem('bv_progress');
+  session = null; progress = {};
+  document.getElementById('app').style.display = 'none';
+  showLogin();
+}
+
+// ── TABS ──
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(`tab-${name}`).classList.add('active');
+}
+
+// ── DEBATES ──
+function getMeetingUrl(debate) {
+  return `https://members.smartschoolcouncils.org.uk${debate.meetingPath}`;
+}
+
+function renderDebates() {
+  const grid = document.getElementById('debates-grid');
+  let doneCount = 0; const valuesDone = new Set();
+  grid.innerHTML = DEBATES.map(d => {
+    const done = !!progress[d.id];
+    if (done) { doneCount++; valuesDone.add(d.value); }
+    const footerContent = done
+      ? `<span class="last-run">Last run: ${formatDate(progress[d.id].runAt)}</span> <a href="${getMeetingUrl(d)}" target="_blank" class="run-btn run-again-btn">Run again ↗</a>`
+      : `<span></span><a href="${getMeetingUrl(d)}" target="_blank" class="run-btn">Run debate ↗</a>`;
+    return `<div class="debate-card${done ? ' done' : ''}">
+      <div class="card-top">
+        <h3>${d.question}</h3>
+        <div class="value-badge">${d.emoji} ${d.value}${done ? ' ✓' : ''}</div>
+      </div>
+      <div class="card-footer">${footerContent}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('stat-done').textContent = doneCount;
+  document.getElementById('stat-values').textContent = `${valuesDone.size}/5`;
+  const pct = Math.round((doneCount / 10) * 100);
+  document.getElementById('progress-pct').textContent = `${pct}%`;
+  document.getElementById('progress-fill').style.width = `${pct}%`;
+}
+
+function renderProgress() {
+  const tbody = document.getElementById('progress-tbody');
+  tbody.innerHTML = DEBATES.map(d => {
+    const done = !!progress[d.id];
+    return `<tr>
+      <td>${d.question}</td>
+      <td>${d.emoji} ${d.value}</td>
+      <td><span class="status-pill ${done ? 'done' : 'pending'}">${done ? 'Done ✓' : 'Not yet'}</span></td>
+      <td>${done ? formatDate(progress[d.id].runAt) : '—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+function updateOfsted() {
+  const doneCount = Object.keys(progress).length;
+  const valuesDone = new Set(DEBATES.filter(d => progress[d.id]).map(d => d.value)).size;
+  document.getElementById('ofsted-done').textContent = `${doneCount} of 10`;
+  document.getElementById('ofsted-values').textContent = `${valuesDone} of 5`;
+  const ready = doneCount >= 5;
+  const btn = document.getElementById('generate-btn');
+  document.getElementById('ofsted-status').textContent = ready ? 'Ready to generate ✓' : `Complete ${5 - doneCount} more to unlock`;
+  if (ready) { btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; }
+}
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+</script>
+</body>
+</html>
