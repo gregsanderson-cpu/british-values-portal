@@ -238,6 +238,38 @@
   const status = document.getElementById('status');
   const btn    = form.querySelector('button[type="submit"]');
 
+  // --- Magic-link arrival: if ?token=... in URL, verify and redirect to dashboard ---
+  (async function () {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    if (!token) return;
+
+    form.style.display = 'none';
+    status.textContent = 'Logging you in…';
+    status.classList.add('show');
+
+    try {
+      const resp = await fetch(
+        'https://bigdebate.club/bv-auth.php?action=verify&token=' + encodeURIComponent(token),
+        { method: 'GET' }
+      );
+      const data = await resp.json();
+      if (data.ok) {
+        sessionStorage.setItem('bv_email',      data.email      || '');
+        sessionStorage.setItem('bv_schoolName', data.schoolName || '');
+        sessionStorage.setItem('bv_schoolId',   data.schoolId   || '');
+        window.location.replace('dashboard.html');
+      } else {
+        form.style.display = '';
+        status.textContent = data.message || 'That login link has expired. Please request a new one.';
+      }
+    } catch (err) {
+      form.style.display = '';
+      status.textContent = 'Network error. Please try again in a moment.';
+    }
+  })();
+
+  // --- Normal login form: request a magic link ---
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     const val = email.value.trim();
