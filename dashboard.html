@@ -3,18 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Your debates | British Values Pack | Smart School Councils</title>
 <meta name="description" content="Run your British Values debates, track your progress, and download your Ofsted-ready report.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#012169">
-
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'><clipPath id='s'><path d='M0,0 v30 h60 v-30 z'/></clipPath><clipPath id='t'><path d='M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z'/></clipPath><rect width='60' height='30' fill='%23012169'/><g clip-path='url(%23s)'><path d='M0,0 L60,30 M60,0 L0,30' stroke='%23fff' stroke-width='6'/><path d='M0,0 L60,30 M60,0 L0,30' clip-path='url(%23t)' stroke='%23C8102E' stroke-width='4'/><path d='M30,0 v30 M0,15 h60' stroke='%23fff' stroke-width='10'/><path d='M30,0 v30 M0,15 h60' stroke='%23C8102E' stroke-width='6'/></g></svg>">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
   :root {
     --navy: #0E2240;
@@ -28,7 +24,7 @@
     --green: #2f6b4f;
     --rule: #0E22401a;
     --max: 1200px;
-  }  
+  }
   *,*::before,*::after { box-sizing: border-box; }
   body {
     margin: 0; background: var(--cream); color: var(--ink);
@@ -49,9 +45,7 @@
   p { margin: 0 0 1em; }
   a { color: var(--navy); }
   a:hover { color: var(--red); }
-
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 28px; }
-
   /* Nav */
   .nav { padding: 22px 0; border-bottom: 1px solid var(--rule); }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
@@ -70,7 +64,6 @@
   .brand .dot { color: var(--red); }
   .nav-links a { text-decoration: none; color: var(--ink-60); margin-left: 24px; font-size: .95rem; }
   .nav-links a:hover { color: var(--navy); }
-
   /* Top section: welcome + progress */
   .top {
     padding: 60px 0 40px;
@@ -125,7 +118,6 @@
     border-radius: 3px;
     transition: width .5s ease;
   }
-
   /* Tabs */
   .tabs {
     display: flex;
@@ -155,10 +147,8 @@
     width: 16px; height: 16px; opacity: .6;
   }
   .tab .lock svg { width: 100%; height: 100%; }
-
   .tab-panel { display: none; padding: 40px 0 80px; }
   .tab-panel.active { display: block; }
-
   /* Debates list */
   .values { margin-top: 12px; }
   .value-group {
@@ -264,7 +254,6 @@
     border: 1px solid var(--navy);
   }
   .btn-ghost:hover { background: var(--navy); color: #fff; }
-
   /* Ofsted tab */
   .ofsted-locked {
     max-width: 560px;
@@ -299,7 +288,6 @@
     color: var(--navy);
     font-weight: 500;
   }
-
   /* Footer */
   footer {
     padding: 32px 0; border-top: 1px solid var(--rule);
@@ -309,7 +297,6 @@
   footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
   footer a { color: var(--ink-60); text-decoration: none; margin-left: 24px; }
   footer a:hover { color: var(--navy); }
-
   /* Responsive */
   @media (max-width: 820px) {
     .top-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -324,7 +311,6 @@
 </style>
 </head>
 <body>
-
 <header class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="/">
@@ -352,9 +338,7 @@
     </nav>
   </div>
 </header>
-
 <main>
-
 <section class="top">
   <div class="wrap">
     <div class="top-grid">
@@ -368,7 +352,6 @@
         <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill" style="width: 30%;"></div></div>
       </div>
     </div>
-
     <div class="tabs" role="tablist">
       <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-debates" data-tab="debates">Debates</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-ofsted" data-tab="ofsted">
@@ -383,13 +366,10 @@
     </div>
   </div>
 </section>
-
 <!-- DEBATES TAB -->
 <section class="tab-panel active" id="panel-debates" role="tabpanel" aria-labelledby="tab-debates">
   <div class="wrap">
-
     <div class="values">
-
       <div class="value-group">
         <div class="value-header">
           <span class="value-num">Value 01</span>
@@ -417,7 +397,6 @@
           </div>
         </div>
       </div>
-
       <div class="value-group">
         <div class="value-header">
           <span class="value-num">Value 02</span>
@@ -446,7 +425,6 @@
           </div>
         </div>
       </div>
-
       <div class="value-group">
         <div class="value-header">
           <span class="value-num">Value 03</span>
@@ -474,7 +452,6 @@
           </div>
         </div>
       </div>
-
       <div class="value-group">
         <div class="value-header">
           <span class="value-num">Value 04</span>
@@ -501,7 +478,6 @@
           </div>
         </div>
       </div>
-
       <div class="value-group">
         <div class="value-header">
           <span class="value-num">Value 05</span>
@@ -528,15 +504,12 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
-
 <!-- OFSTED TAB -->
 <section class="tab-panel" id="panel-ofsted" role="tabpanel" aria-labelledby="tab-ofsted">
   <div class="wrap">
-
     <!-- Locked state (shown until 5 debates complete) -->
     <div class="ofsted-locked" id="ofsted-locked-state">
       <svg class="lock-big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -545,7 +518,6 @@
       </svg>
       <h2>Your Ofsted report unlocks at five debates.</h2>
       <p>Once your classes have completed five debates across the British Values, we'll auto-generate a one-page summary you can print and hand to an inspector. It shows which debates you ran, how many pupils took part, and what they said.</p>
-
       <div class="unlock-progress">
         <div class="count-line">
           <span><strong id="ofsted-done">3</strong> of 5 debates complete</span>
@@ -554,7 +526,6 @@
         <div class="progress-bar"><div class="progress-bar-fill" id="ofsted-fill" style="width: 60%;"></div></div>
       </div>
     </div>
-
     <!-- Unlocked state (shown when 5+ debates complete). Hidden by default. -->
     <div id="ofsted-unlocked-state" style="display:none;">
       <span class="eyebrow">Ofsted report</span>
@@ -562,12 +533,9 @@
       <p>One printable page. Which debates you ran, how many pupils took part, a sample of the responses, and a summary against each of the five values.</p>
       <a class="btn btn-primary" href="#">Download the report (PDF)</a>
     </div>
-
   </div>
 </section>
-
 </main>
-
 <footer>
   <div class="wrap">
     <div>&copy; Smart School Councils &middot; UK registered charity</div>
@@ -578,9 +546,20 @@
     </nav>
   </div>
 </footer>
-
 <script>
-  // Tab switching
+  // --- Auth gate: if not logged in, kick to login page FIRST (before rendering anything else) ---
+  if (!sessionStorage.getItem('bv_email')) {
+    window.location.replace('/');
+  }
+
+  // --- Fill in the user's school name from the session ---
+  const bvName = sessionStorage.getItem('bv_schoolName');
+  if (bvName) {
+    const nameEl = document.getElementById('school-name');
+    if (nameEl) nameEl.textContent = bvName;
+  }
+
+  // --- Tab switching ---
   document.querySelectorAll('.tab').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.tab').forEach(b => {
@@ -594,18 +573,16 @@
     });
   });
 
-  // Toggle Ofsted locked/unlocked state based on done count
+  // --- Toggle Ofsted locked/unlocked state based on done count ---
   // Backend should set data-done on <body> when rendering the page
   function applyProgressState() {
     const done = parseInt(document.body.dataset.done || document.getElementById('done-count').textContent || '0', 10);
     const pct  = Math.min(100, Math.round((done / 10) * 100));
     document.getElementById('progress-fill').style.width = pct + '%';
-
     const ofstedProgress = Math.min(5, done);
     document.getElementById('ofsted-done').textContent = ofstedProgress;
     document.getElementById('ofsted-remaining').textContent = (5 - ofstedProgress) + ' to go';
     document.getElementById('ofsted-fill').style.width = ((ofstedProgress / 5) * 100) + '%';
-
     const lock      = document.getElementById('ofsted-lock');
     const locked    = document.getElementById('ofsted-locked-state');
     const unlocked  = document.getElementById('ofsted-unlocked-state');
@@ -621,7 +598,7 @@
   }
   applyProgressState();
 
-  // "Run this debate" buttons. Backend wires these to the per-debate GAS endpoint.
+  // --- "Run this debate" buttons. Backend wires these to the per-debate GAS endpoint. ---
   document.querySelectorAll('[data-run]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
@@ -631,25 +608,6 @@
       alert('Debate ' + id + ' will be set up and the meeting URL emailed to you. (Placeholder: wire to bv_runDebate GAS endpoint.)');
     });
   });
-  
-  // Gate: if not logged in, kick to login page
-  if (!sessionStorage.getItem('bv_email')) {
-    window.location.replace('/');
-  }
-
-  // Fill in the user's school name from the session
-  const bvName = sessionStorage.getItem('bv_schoolName');
-  if (bvName) {
-    const h1 = document.querySelector('h1');
-    if (h1) h1.innerHTML = 'Welcome back,<br>' + bvName + '.';
-  }
-
 </script>
-
-
-
-
-
-  
 </body>
 </html>
