@@ -28,8 +28,7 @@
     --green: #2f6b4f;
     --rule: #0E22401a;
     --max: 1200px;
-  }
-
+  }  
   *,*::before,*::after { box-sizing: border-box; }
   body {
     margin: 0; background: var(--cream); color: var(--ink);
@@ -632,7 +631,25 @@
       alert('Debate ' + id + ' will be set up and the meeting URL emailed to you. (Placeholder: wire to bv_runDebate GAS endpoint.)');
     });
   });
+  
+  // Gate: if not logged in, kick to login page
+  if (!sessionStorage.getItem('bv_email')) {
+    window.location.replace('/');
+  }
+
+  // Fill in the user's school name from the session
+  const bvName = sessionStorage.getItem('bv_schoolName');
+  if (bvName) {
+    const h1 = document.querySelector('h1');
+    if (h1) h1.innerHTML = 'Welcome back,<br>' + bvName + '.';
+  }
+
 </script>
 
+
+
+
+
+  
 </body>
 </html>
