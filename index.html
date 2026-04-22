@@ -233,20 +233,42 @@
 </footer>
 
 <script>
-  // Light client-side UX. The form still posts normally for non-JS users.
   const form   = document.getElementById('login-form');
+  const email  = document.getElementById('email');
   const status = document.getElementById('status');
-  form.addEventListener('submit', function (e) {
-    const email = document.getElementById('email').value.trim();
-    if (!email || !email.includes('@')) {
-      e.preventDefault();
+  const btn    = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const val = email.value.trim();
+    if (!val || !val.includes('@')) {
       status.textContent = 'Please enter a valid email address.';
       status.classList.add('show');
       return;
     }
-    // Optimistic confirmation. Backend will also send the real email.
-    status.textContent = 'Check your inbox. If this email is registered, a magic link is on its way.';
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.textContent = 'Sending your magic link…';
     status.classList.add('show');
+
+    try {
+      const resp = await fetch(
+        'https://bigdebate.club/bv-auth.php?action=request&email=' + encodeURIComponent(val),
+        { method: 'GET' }
+      );
+      const data = await resp.json();
+      if (data.ok) {
+        status.textContent = 'Check your inbox. If ' + val + ' is registered, a magic link is on its way.';
+      } else {
+        status.textContent = data.message || 'Something went wrong. Please try again in a moment.';
+      }
+    } catch (err) {
+      status.textContent = 'Network error. Please try again in a moment.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send me a link';
+    }
   });
 </script>
 
