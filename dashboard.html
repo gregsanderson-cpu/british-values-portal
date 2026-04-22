@@ -548,9 +548,12 @@
 </footer>
 <script>
   // --- Auth gate: if not logged in, kick to login page FIRST (before rendering anything else) ---
-  if (!sessionStorage.getItem('bv_email')) {
-    window.location.replace('/');
-  }
+ if (!sessionStorage.getItem('bv_email')) {
+  window.location.replace('/');
+}
+if (!localStorage.getItem('bv_onboarded')) {
+  window.location.replace('https://gregsanderson-cpu.github.io/british-values-pack/onboarding.html');
+}
 
   // --- Fill in the user's school name from the session ---
   const bvName = sessionStorage.getItem('bv_schoolName');
