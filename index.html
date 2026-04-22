@@ -238,6 +238,13 @@
   const status = document.getElementById('status');
   const btn    = form.querySelector('button[type="submit"]');
 
+  // --- If already logged in and there's no token, skip login and go to dashboard ---
+  // This handles: user clicks "About the pack" → lands on separate landing site →
+  // clicks "Log in" → hits this page with sessionStorage already populated → gets straight back in.
+  if (sessionStorage.getItem('bv_email') && !new URLSearchParams(window.location.search).get('token')) {
+    window.location.replace('dashboard.html');
+  }
+
   // --- Magic-link arrival: if ?token=... in URL, verify and redirect to dashboard ---
   (async function () {
     const params = new URLSearchParams(window.location.search);
