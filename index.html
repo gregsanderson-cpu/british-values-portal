@@ -265,6 +265,7 @@
         sessionStorage.setItem('bv_email',      data.email      || '');
         sessionStorage.setItem('bv_schoolName', data.schoolName || '');
         sessionStorage.setItem('bv_schoolId',   data.schoolId   || '');
+        document.cookie = 'bv_logged_in=1; domain=.smartschoolcouncils.org.uk; path=/; max-age=' + (60*60*24*30) + '; SameSite=Lax';
         window.location.replace('dashboard.html');
       } else {
         form.style.display = '';
